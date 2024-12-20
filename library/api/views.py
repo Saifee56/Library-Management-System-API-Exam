@@ -59,24 +59,24 @@ class BookDetailApiView(APIView):
 
         book = self.get_book(pk)
         if not book:
-            return Response({"message": "Book not found"}, status=404)
+            return Response({"message": "Book not found"} )
 
         serializer = BookSerializer(book, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors)
 
     def delete(self, request, pk):
         if not request.user.is_staff:
-            return Response({"message": "Permission Denied"}, status=403)
+            return Response({"message": "Permission Denied"})
 
         book = self.get_book(pk)
         if not book:
-            return Response({"message": "Book not found"}, status=404)
+            return Response({"message": "Book not found"})
 
         book.delete()
-        return Response({"message": "Book deleted successfully"}, status=204)
+        return Response({"message": "Book deleted successfully"})
         
 
 # Admin-->Login and JWT authentication
